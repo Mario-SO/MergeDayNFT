@@ -13,10 +13,9 @@ import contractInterface from '../contract-abi.json';
 import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
 import { parseEther } from 'ethers/lib/utils';
 
-// goerli address: 0xab1bE13Eb6179a8626d169b8Bc619B5C71fE3B23
-// mainnet address: 0x0887Ae229438Bd783Cb8bf19cF487c70176ce127
+// Goerli address: 0xA638275022d4A16cE5576852041950CC06799136
 const contractConfig = {
-  addressOrName: '0x0887Ae229438Bd783Cb8bf19cF487c70176ce127',
+  addressOrName: '0xA638275022d4A16cE5576852041950CC06799136',
   contractInterface: contractInterface,
 };
 
@@ -27,7 +26,7 @@ const Home: NextPage = () => {
   const { config: contractWriteConfig } = usePrepareContractWrite({
     ...contractConfig,
     functionName: 'mint',
-    args: [1, {value: parseEther('0.042')}],
+    args: [{value: parseEther('0.042')}],
   });
 
   const {
@@ -65,9 +64,9 @@ const Home: NextPage = () => {
       <div className="container">
         <div style={{ flex: '1 1 auto' }}>
           <div style={{ padding: '24px 24px 24px 0' }}>
-            <h1>Unpolite Pass Minter</h1>
+            <h1>Merge Day NFT</h1>
             <p style={{ margin: '12px 0 24px' }}>
-              {totalMinted} / 690 minted so far!
+              {totalMinted} minted so far!
             </p>
             <ConnectButton />
 
@@ -107,9 +106,9 @@ const Home: NextPage = () => {
                 src="/nft.png"
                 width="500"
                 height="500"
-                alt="Unpolite Pass NFT"
+                alt="Merge Day NFT"
               />
-              <h1 style={{ marginTop: 24 }}>Unpolite Pass NFT</h1>
+              <h1 style={{ marginTop: 24 }}>Merge Day NFT</h1>
               <ConnectButton />
             </FrontCard>
             <BackCard isCardFlipped={isMinted}>

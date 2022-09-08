@@ -8,7 +8,8 @@ body {
   margin: 0;
   /* import pix font from public folder */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: gold;
+  color: white;
+  background-color: #000000;
 }
 
 .page {
@@ -31,7 +32,7 @@ body {
   appearance: none;
   border: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: rgba(107, 208, 157);
+  background-color: #6bd09d;
   display: inline-flex;
   line-height: 1;
   font-size: 16px;
@@ -49,7 +50,7 @@ button:not(:disabled):hover {
 }
 
 button[data-mint-loading="true"] {
-  background: rgba(22, 25, 31, 0.24);
+  background: #6bd09d;
 }
 
 button[data-mint-started="true"] {

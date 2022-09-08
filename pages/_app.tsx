@@ -15,7 +15,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet],
+  [chain.goerli],
   [
     alchemyProvider({ apiKey: 'bUQtqNq4FeXuyU-vT157iBiKrGPBy1S9' }),
     publicProvider(),
@@ -23,12 +23,12 @@ const { chains, provider, webSocketProvider } = configureChains(
 );
 
 const { wallets } = getDefaultWallets({
-  appName: 'RainbowKit Mint NFT Demo',
+  appName: 'Merge Day NFT',
   chains,
 });
 
-const demoAppInfo = {
-  appName: 'RainbowKit Mint NFT Demo',
+const AppInfo = {
+  appName: 'Merge Day NFT',
 };
 
 const connectors = connectorsForWallets([
@@ -50,12 +50,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <Head>
-        <title>Unpolite Pass</title>
+        <title>Merge Day</title>
       </Head>
       <RainbowKitProvider theme={{
       lightMode: lightTheme(),
       darkMode: darkTheme(),
-    }} appInfo={demoAppInfo} chains={chains}>
+    }} appInfo={AppInfo} chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
