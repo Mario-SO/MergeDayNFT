@@ -14,6 +14,7 @@ import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
 import { parseEther } from 'ethers/lib/utils';
 
 // Goerli address: 0xA638275022d4A16cE5576852041950CC06799136
+// Magic block: 58750
 const contractConfig = {
   addressOrName: '0xA638275022d4A16cE5576852041950CC06799136',
   contractInterface: contractInterface,
