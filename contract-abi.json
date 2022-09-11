@@ -19,6 +19,28 @@
         "inputs": [
             {
                 "internalType": "string",
+                "name": "blockNumberMessage",
+                "type": "string"
+            }
+        ],
+        "name": "blockNumberNotMergeBlock",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "deadlineMessage",
+                "type": "string"
+            }
+        ],
+        "name": "mintDeadlineReached",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
                 "name": "notEnoughMessage",
                 "type": "string"
             }

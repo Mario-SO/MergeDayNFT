@@ -1,33 +1,35 @@
-import React from 'react';
-import Image from 'next/image';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import type { NextPage } from 'next';
+import React from "react";
+import Image from "next/image";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import type { NextPage } from "next";
 import {
   useAccount,
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
-} from 'wagmi';
-import contractInterface from '../contract-abi.json';
-import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
-import { parseEther } from 'ethers/lib/utils';
+} from "wagmi";
+import contractInterface from "../contract-abi.json";
+import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
+import { parseEther } from "ethers/lib/utils";
 
-// Goerli address: 0xA638275022d4A16cE5576852041950CC06799136
+// Goerli address no block restrictions: 0x8D99827704d81825FFb845693240835eD7b0aA6e
+// Goerli address with block restrictions: 0xA8C706ce818b729DD5F5Eb81a7243c9C6daB6bC0
 // Magic block: 58750
 const contractConfig = {
-  addressOrName: '0xA638275022d4A16cE5576852041950CC06799136',
+  addressOrName: "0xA8C706ce818b729DD5F5Eb81a7243c9C6daB6bC0",
   contractInterface: contractInterface,
 };
 
 const Home: NextPage = () => {
   const [totalMinted, setTotalMinted] = React.useState(0);
+  const [amount, setAmount] = React.useState("0.05");
   const { isConnected } = useAccount();
 
   const { config: contractWriteConfig } = usePrepareContractWrite({
     ...contractConfig,
-    functionName: 'mint',
-    args: [{value: parseEther('0.042')}],
+    functionName: "mint",
+    args: [{ value: parseEther(amount) }],
   });
 
   const {
@@ -40,7 +42,7 @@ const Home: NextPage = () => {
 
   const { data: totalSupplyData } = useContractRead({
     ...contractConfig,
-    functionName: 'minted',
+    functionName: "minted",
     watch: true,
   });
 
@@ -63,43 +65,59 @@ const Home: NextPage = () => {
   return (
     <div className="page">
       <div className="container">
-        <div style={{ flex: '1 1 auto' }}>
-          <div style={{ padding: '24px 24px 24px 0' }}>
+        <div style={{ flex: "1 1 auto" }}>
+          <div style={{ padding: "24px 24px 24px 0" }}>
             <h1>Merge Day NFT</h1>
-            <p style={{ margin: '12px 0 24px' }}>
+            <p style={{ margin: "12px 0 24px" }}>
               {totalMinted} minted so far!
             </p>
             <ConnectButton />
 
             {mintError && (
-              <p style={{ marginTop: 24, color: '#FF6257' }}>
+              <p style={{ marginTop: 24, color: "#FF6257" }}>
                 Error: {mintError.message}
               </p>
             )}
             {txError && (
-              <p style={{ marginTop: 24, color: '#FF6257' }}>
+              <p style={{ marginTop: 24, color: "#FF6257" }}>
                 Error: {txError.message}
               </p>
             )}
 
             {isConnected && !isMinted && (
-              <button
-                style={{ marginTop: 24 }}
-                disabled={!mint || isMintLoading || isMintStarted}
-                className="button"
-                data-mint-loading={isMintLoading}
-                data-mint-started={isMintStarted}
-                onClick={() => mint?.()}
-              >
-                {isMintLoading && 'Waiting for approval'}
-                {isMintStarted && 'Minting...'}
-                {!isMintLoading && !isMintStarted && 'Mint'}
-              </button>
+              <div style={{ alignItems: "center" }}>
+                <input
+                  style={{
+                    width: "70%",
+                    padding: 7,
+                    marginBottom: 5,
+                    marginTop: 5,
+                    marginRight: 5,
+                    borderRadius: 10,
+                  }}
+                  aria-label="Amount (ether)"
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="0.05"
+                  value={amount}
+                />
+                <button
+                  style={{ marginTop: 24 }}
+                  disabled={!mint || isMintLoading || isMintStarted}
+                  className="button"
+                  data-mint-loading={isMintLoading}
+                  data-mint-started={isMintStarted}
+                  onClick={() => mint?.()}
+                >
+                  {isMintLoading && "Waiting for approval"}
+                  {isMintStarted && "Minting..."}
+                  {!isMintLoading && !isMintStarted && "Mint"}
+                </button>
+              </div>
             )}
           </div>
         </div>
 
-        <div style={{ flex: '0 0 auto' }}>
+        <div style={{ flex: "0 0 auto" }}>
           <FlipCard>
             <FrontCard isCardFlipped={isMinted}>
               <Image
@@ -126,13 +144,13 @@ const Home: NextPage = () => {
                   Your NFT will show up in your wallet in the next few minutes.
                 </p>
                 <p style={{ marginBottom: 6 }}>
-                  View on{' '}
+                  View on{" "}
                   <a href={`https://etherscan.io/tx/${mintData?.hash}`}>
                     Etherscan
                   </a>
                 </p>
                 <p>
-                  View on{' '}
+                  View on{" "}
                   <a
                     href={`https://opensea.io/assets/${txData?.to}/1`}
                   >
