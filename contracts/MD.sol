@@ -11,7 +11,6 @@ contract MergeDay is ERC721Enumerable, Ownable {
     using Strings for uint256;
 
     // Errors
-    error alreadyMinted(string mintedMessage);
     error notEnoughEthSent(string notEnoughMessage);
     error mintDeadlineReached(string deadlineMessage);
     error blockNumberNotMergeBlock(string blockNumberMessage);
@@ -22,11 +21,10 @@ contract MergeDay is ERC721Enumerable, Ownable {
         string value;
         // Block attributes
         string blockNum;
-        string difficulty;
     }
 
     uint256 MINT_DEAD_LINE = block.timestamp + 24 hours;
-    uint256 MERGE_BLOCK = 58750;
+    uint256 MERGE_BLOCK = 15537300;
 
     mapping(uint256 => MD) public MDs;
 
@@ -34,32 +32,28 @@ contract MergeDay is ERC721Enumerable, Ownable {
 
     // Public
     function mint() public payable {
-        if (block.number < MERGE_BLOCK)
-            revert blockNumberNotMergeBlock("Block number is not Merge block");
+        // if (block.number < MERGE_BLOCK)
+        //     revert blockNumberNotMergeBlock("Block number is not Merge block");
 
         if (block.timestamp > MINT_DEAD_LINE)
             revert mintDeadlineReached("Mint was only available for 24 hours");
-
-        if (balanceOf(msg.sender) >= 1)
-            revert alreadyMinted("You already have 1 NFT");
-        uint256 supply = totalSupply();
-
-        address _sender = msg.sender;
-        uint256 _value = msg.value;
-
-        uint256 _block = block.number;
-        uint256 _dif = block.difficulty;
 
         if (msg.sender != owner()) {
             if (msg.value < 0.05 ether)
                 revert notEnoughEthSent("You must pay 0.05 ETH or more");
         }
 
+        uint256 supply = totalSupply();
+
+        address _sender = msg.sender;
+        uint256 _value = msg.value;
+
+        uint256 _block = block.number;
+
         MD memory newMD = MD(
             Strings.toHexString(uint256(uint160(_sender))),
             Strings.toString(_value),
-            Strings.toString(_block),
-            Strings.toString(_dif)
+            Strings.toString(_block)
         );
 
         MDs[supply + 1] = newMD;
@@ -73,29 +67,25 @@ contract MergeDay is ERC721Enumerable, Ownable {
                 bytes(
                     abi.encodePacked(
                         '<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">',
-                        '<g id="NFT">',
-                        '<rect id="svg_19" height="512" width="512" x="0" stroke-width="0" stroke="#000" fill="#000000"/>',
-                        '<text font-weight="normal" opacity="0.25" stroke-width="0" xml:space="preserve" text-anchor="middle" font-size="23" id="svg_6" y="500" x="50%" stroke="#000" fill="#ffffff" dominant-baseline="middle">',
-                        currentMD.sender,
-                        "</text>",
+                        "<title>NFT</title>",
+                        "<g>",
+                        '<rect id="svg_19" height="512" width="512" x="-0.02149" stroke-width="0" stroke="#000" fill="#000000"/>',
                         '<text font-style="normal" stroke-width="0" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_2" y="70.09975" x="20" stroke="#000" fill="#ffffff">I bought this NFT</text>',
                         '<text stroke="#000" stroke-width="0" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_3" y="150.35143" x="20" fill="#ffffff">on block</text>',
-                        '<text font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_13" y="150.35143" x="200" stroke-width="0" stroke="#000" fill="#ff0000">',
+                        '<text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_13" y="150.35143" x="200" stroke-width="0" stroke="#000" fill="#ff0000">',
                         currentMD.blockNum,
                         "</text>",
-                        '<text font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_14" y="150.09975" x="390" stroke-width="0" stroke="#000" fill="#ffffff">for</text>',
-                        '<text stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_1" y="230" x="400" stroke-width="0" fill="#ffffff">WEI</text>',
-                        '<text stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="37" id="svg_18" y="230" x="20" stroke-width="0" fill="#007fff">',
+                        '<text font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_14" y="150.09975" x="386.92111" stroke-width="0" stroke="#000" fill="#ffffff">for</text>',
+                        '<text style="cursor: move;" stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="37" id="svg_18" y="230" x="20" stroke-width="0" fill="#007fff">',
                         currentMD.value,
                         "</text>",
+                        '<text stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_1" y="230" x="400" stroke-width="0" fill="#ffffff">WEI</text>',
                         '<text stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="43" id="svg_22" y="310.09975" x="20" stroke-width="0" fill="#ffffff">during merge day.</text>',
-                        '<g id="svg_24">',
-                        '<rect stroke="#000" id="svg_16" height="116" width="490" y="350" x="11" stroke-width="0" fill="#ffffff"/>',
-                        '<text stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="42" id="svg_20" y="395" x="15" stroke-width="0" fill="#000000">Block difficulty</text>'
-                        '<text font-weight="bold" xml:space="preserve" text-anchor="start" font-size="44" id="svg_23" y="450" x="15" stroke-width="0" stroke="#000" fill="#ffc700">',
-                        currentMD.difficulty,
-                        "</text>"
-                        "</g>",
+                        '<rect stroke="#000" id="svg_16" height="116" width="491.00006" y="367.08801" x="10.49997" stroke-width="0" fill="#ffffff"/>',
+                        '<text stroke="#000" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="42" id="svg_20" y="412.08801" x="50%" stroke="#000" fill="#ffffff" dominant-baseline="middle">Buyer</text>',
+                        '<text transform="matrix(1 0 0 1 0 0)" font-weight="bold" xml:space="preserve" text-anchor="start" font-size="22" id="svg_23" y="454.05267" x="50%" stroke="#000" dominant-baseline="middle" fill="#e0ac00">',
+                        currentMD.sender,
+                        "</text>",
                         "</g>",
                         "</svg>"
                     )

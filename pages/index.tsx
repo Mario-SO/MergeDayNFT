@@ -13,11 +13,11 @@ import contractInterface from "../contract-abi.json";
 import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
 import { parseEther } from "ethers/lib/utils";
 
-// Goerli address no block restrictions: 0x8D99827704d81825FFb845693240835eD7b0aA6e
-// Goerli address with block restrictions: 0xA8C706ce818b729DD5F5Eb81a7243c9C6daB6bC0
-// Magic block: 58750
+// Goerli address no block restrictions: 0xE57400bA25D04ff0a9D5E432083e326F366Aa845
+// Goerli address with block restrictions: 0x3d24b636544cF78A5f638264e835315722Cc9f3e
+// Magic block: 15537310
 const contractConfig = {
-  addressOrName: "0xA8C706ce818b729DD5F5Eb81a7243c9C6daB6bC0",
+  addressOrName: "0xE57400bA25D04ff0a9D5E432083e326F366Aa845",
   contractInterface: contractInterface,
 };
 
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
 
   const { data: totalSupplyData } = useContractRead({
     ...contractConfig,
-    functionName: "minted",
+    functionName: "totalSupply",
     watch: true,
   });
 

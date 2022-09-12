@@ -6,10 +6,10 @@
 
 body {
   margin: 0;
-  /* import pix font from public folder */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: white;
-  background-color: #000000;
+  color: rgb(0, 0, 0);
+  background-image: url('https://ethereum.foundation/static/8d097a679ffcd318b6dda34e15954302/2f4e3/ethereum-foundation-background.png');
+  background-size: cover;
 }
 
 .page {
