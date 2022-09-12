@@ -13,11 +13,11 @@ import contractInterface from "../contract-abi.json";
 import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
 import { parseEther } from "ethers/lib/utils";
 
-// Goerli address no block restrictions: 0xE57400bA25D04ff0a9D5E432083e326F366Aa845
+// Goerli address no block restrictions: 0x8De93626BCF3Db4Da3554a4772387C70F299b000
 // Goerli address with block restrictions: 0x3d24b636544cF78A5f638264e835315722Cc9f3e
 // Magic block: 15537310
 const contractConfig = {
-  addressOrName: "0xE57400bA25D04ff0a9D5E432083e326F366Aa845",
+  addressOrName: "0x8De93626BCF3Db4Da3554a4772387C70F299b000",
   contractInterface: contractInterface,
 };
 
