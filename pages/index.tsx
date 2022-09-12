@@ -26,6 +26,11 @@ const Home: NextPage = () => {
   const [amount, setAmount] = React.useState("0.05");
   const { isConnected } = useAccount();
 
+  // handle amount
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  };
+
   const { config: contractWriteConfig } = usePrepareContractWrite({
     ...contractConfig,
     functionName: "mint",
@@ -96,7 +101,7 @@ const Home: NextPage = () => {
                     borderRadius: 10,
                   }}
                   aria-label="Amount (ether)"
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={handleAmountChange}
                   placeholder="0.05"
                   value={amount}
                 />
@@ -123,8 +128,8 @@ const Home: NextPage = () => {
               <Image
                 layout="responsive"
                 src="/nft.png"
-                width="500"
-                height="500"
+                width="512"
+                height="512"
                 alt="Merge Day NFT"
               />
               <h1 style={{ marginTop: 24 }}>Merge Day NFT</h1>
