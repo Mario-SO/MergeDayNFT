@@ -28,6 +28,11 @@ const Home: NextPage = () => {
 
   // handle amount
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // prevent the app crashing when leaving an empty input or entering a non-nuamber value
+    if (e.target.value === "" || isNaN(Number(e.target.value))) {
+      setAmount("0");
+      return;
+    }
     setAmount(e.target.value);
   };
 
