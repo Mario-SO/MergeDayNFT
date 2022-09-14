@@ -13,11 +13,12 @@ import contractInterface from "../contract-abi.json";
 import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
 import { parseEther } from "ethers/lib/utils";
 
-// Goerli address no block restrictions: 0x8De93626BCF3Db4Da3554a4772387C70F299b000
+// Goerli address no block restrictions: 0x4715Ed62ECAaA8e9B7fc97bcd0774Acc1166F2a2
 // Goerli address with block restrictions: 0x3d24b636544cF78A5f638264e835315722Cc9f3e
+// Mainnet: 0xEffB24c14c9e2c643d44bee0D334F3cFC147C895
 // Magic block: 15537310
 const contractConfig = {
-  addressOrName: "0x8De93626BCF3Db4Da3554a4772387C70F299b000",
+  addressOrName: "0xEffB24c14c9e2c643d44bee0D334F3cFC147C895",
   contractInterface: contractInterface,
 };
 
@@ -28,12 +29,17 @@ const Home: NextPage = () => {
 
   // handle amount
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // prevent the app crashing when leaving an empty input or entering a non-nuamber value
-    if (e.target.value === "" || isNaN(Number(e.target.value))) {
-      setAmount("0");
+    // handle error when leaving an empty input or entering a non-nuamber value or lower than 0.05
+    if (
+      e.target.value === "" || isNaN(Number(e.target.value)) ||
+      Number(e.target.value) < 0.05
+    ) {
+      setAmount("0.05");
       return;
+    } else {
+      setAmount(e.target.value);
     }
-    setAmount(e.target.value);
+    // setAmount(e.target.value);
   };
 
   const { config: contractWriteConfig } = usePrepareContractWrite({
@@ -107,7 +113,7 @@ const Home: NextPage = () => {
                   }}
                   aria-label="Amount (ether)"
                   onChange={handleAmountChange}
-                  placeholder="0.05"
+                  placeholder="Pay 0.05 or more"
                   value={amount}
                 />
                 <button

@@ -15,7 +15,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.goerli],
+  [chain.mainnet],
   [
     alchemyProvider({ apiKey: 'bUQtqNq4FeXuyU-vT157iBiKrGPBy1S9' }),
     publicProvider(),

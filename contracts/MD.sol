@@ -24,7 +24,7 @@ contract MergeDay is ERC721Enumerable, Ownable {
     }
 
     uint256 MINT_DEAD_LINE = block.timestamp + 24 hours;
-    uint256 MERGE_BLOCK = 15537300;
+    uint256 MERGE_BLOCK = 15537215;
 
     mapping(uint256 => MD) public MDs;
 
